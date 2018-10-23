@@ -1,0 +1,89 @@
+.table {
+  border: 0px solid darkgray;
+}
+
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 2rem;
+  align-items: center;
+}
+
+.td {
+    width:100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.bg-g{
+  background: rgb(255, 255, 255);
+}
+.th {
+  width: 100%;
+  justify-content: center;
+  background: rgb(4, 119, 52);
+  color: #fff;
+  display: flex;
+  height: 2rem;
+  align-items: center;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 40rpx;
+}
+
+.remarks{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height:2rem;
+  background: rgb(221, 224, 222);
+  padding-left: 20rpx;
+}
+
+.remarksText{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height:4rem;
+  margin-left: 20rpx;
+  
+}
+
+.posterInfo{
+  width: 100%;
+  height:2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: rgb(221, 224, 222);
+  padding-right: 20rpx;
+ 
+}
+
+.operatorInfo{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 20rpx;
+}
+.operatorInfo-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+
+}
+.operateTime{
+ width: 100%;
+ display: flex;
+ justify-content: flex-end;
+ margin-right: 20rpx;
+}
+

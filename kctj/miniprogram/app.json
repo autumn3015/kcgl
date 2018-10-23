@@ -1,0 +1,25 @@
+{
+  "cloud": true,
+  "pages": [
+    "pages/index/index",
+    "pages/userConsole/userConsole",
+    "pages/storageConsole/storageConsole",
+    "pages/databaseGuide/databaseGuide",
+    "pages/addFunction/addFunction",
+    "pages/deployFunctions/deployFunctions",
+    "pages/chooseLib/chooseLib",
+    "pages/pbgl/pbgl",
+    "pages/addPB/addPB",
+    "pages/in/in",
+    "pages/out/out",
+    "pages/docDetail/docDetail",
+    "pages/docs/docs"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "xx库存管理",
+    "navigationBarTextStyle": "black"
+  }
+}

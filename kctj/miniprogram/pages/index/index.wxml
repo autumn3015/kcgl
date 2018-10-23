@@ -1,0 +1,41 @@
+<!--index.wxml-->
+<view class="container">
+
+  <!-- 用户 openid -->
+  <view class="userinfo">
+    <button 
+      open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo"
+      class="userinfo-avatar"
+      style="background-image: url({{avatarUrl}})"
+    ></button>
+    <view>
+      <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
+    </view>
+  </view>
+  
+  <view class="uploader">
+    <navigator url="../pbgl/pbgl" open-type="navigate" class="uploader-text">
+      <text>库存查看与管理</text>
+    </navigator>
+  </view>
+
+   <view class="uploader">
+    <navigator url="../in/in" open-type="navigate" class="uploader-text">
+      <text>提交入库单据</text>
+    </navigator>
+   </view>
+
+   <view class="uploader">
+    <navigator url="../out/out" open-type="navigate" class="uploader-text">
+      <text>提交出库单据</text>
+    </navigator>
+   </view>
+
+   <view class="uploader">
+    <navigator url="../docs/docs" open-type="navigate" class="uploader-text">
+      <text>历史单据</text>
+    </navigator>
+   </view>
+
+</view>
