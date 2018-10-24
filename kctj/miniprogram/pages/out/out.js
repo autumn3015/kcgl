@@ -39,7 +39,7 @@ Page({
         this.setData({
           pb: res.data
         })
-        console.log('[数据库] [查询记录] 成功: ' + res.data, res)
+        console.log('[数据库] [查询记录] 成功: ')
       },
       fail: err => {
         wx.showToast({
@@ -89,12 +89,16 @@ Page({
 
   formSubmit: function (e) {
 
-    var outDoc = []
-    var userName = app.globalData.userInfo.nickName
-    var time = util.formatTime(new Date());
-    const db = wx.cloud.database()
-
     if (e.detail.value.yes) {
+
+      var outDoc = []
+      var userName = app.globalData.userInfo.nickName
+      var avatarUrl = app.globalData.userInfo.avatarUrl
+      var time = util.formatTime(new Date())
+      var remarks = e.detail.value['remarksText']
+      const db = wx.cloud.database()
+
+
       for (var i = 0; i < this.data.pb.length; i++) {
 
         if (e.detail.value["count" + i] > 0) {
@@ -114,14 +118,19 @@ Page({
           })
         }
       }
+
+      if (remarks == '') {
+        remarks = '无'
+      }
       
       db.collection('doc').add({
         data: {
           detail: outDoc,
           operator: userName,
+          operatorImageUrl: avatarUrl,
           operateTime: time,
           inOrOut:'out',
-          remarks:'无'
+          remarks:remarks
 
         },
         success: res => {

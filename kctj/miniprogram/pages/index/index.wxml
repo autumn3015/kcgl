@@ -1,5 +1,3 @@
-<!--index.wxml-->
-<view class="container">
 
   <!-- 用户 openid -->
   <view class="userinfo">
@@ -10,10 +8,11 @@
       style="background-image: url({{avatarUrl}})"
     ></button>
     <view>
-      <button class="userinfo-nickname" bindtap="onGetOpenid">点击获取 openid</button>
+      <text class="userinfo-nickname">~~~{{hello}}~~~</text>
     </view>
   </view>
-  
+
+<view class="container1">
   <view class="uploader">
     <navigator url="../pbgl/pbgl" open-type="navigate" class="uploader-text">
       <text>库存查看与管理</text>
@@ -25,7 +24,9 @@
       <text>提交入库单据</text>
     </navigator>
    </view>
+</view>
 
+<view class="container1">
    <view class="uploader">
     <navigator url="../out/out" open-type="navigate" class="uploader-text">
       <text>提交出库单据</text>
@@ -37,5 +38,35 @@
       <text>历史单据</text>
     </navigator>
    </view>
+</view>
+
+<text  class="guideTextPost">最新提交的单据：</text>
+
+<view class="tr">
+    <view class="th ">牌别</view>
+    <view class="th ">数量</view>
+</view>
+
+<block wx:for="{{lastestDoc.detail}}" wx:key="{{code}}">
+    <view class="tr"  data-id="{{item._id}}"  > 
+    <view class="td">{{item.pb}}</view>
+    <view class="td">{{item.count}}</view>
+    </view>
+</block>
+
+
+<view class="container">
+
+  <text  class="guideTextRemarks">备注</text>
+  <text  class="remarksText">{{lastestDoc.remarks}}</text>
+
+  <text  class="posterInfo">提交人信息</text>
+  <view class="operatorInfo">
+  <image class="operatorInfo-avatar"src="{{lastestDoc.operatorImageUrl}}"></image>
+  <text  class="operatorName">{{lastestDoc.operator}}</text>
+  </view>
+  <text  class="operateTime">提交时间：{{lastestDoc.operateTime}}</text>
 
 </view>
+
+

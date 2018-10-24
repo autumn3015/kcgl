@@ -80,7 +80,7 @@ Page({
         success: res => {
 
           wx.showToast({
-            title: '新增记录成功',
+            title: '新增牌别成功',
           })
 
           formReset()

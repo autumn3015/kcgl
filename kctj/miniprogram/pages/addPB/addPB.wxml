@@ -1,17 +1,16 @@
 <form bindsubmit="formSubmit" bindreset="formReset">
   
-  <view class="section">
-    <view class="section__title">牌别描述</view>
-    <input name="pbms" placeholder="please input here" />
+  <view class="container">
+    <text  class="pbInfo">牌别信息</text>
   </view>
 
-  <view class="section section_gap">
-    <view class="section__title">确认提交</view>
-    <switch name="yes" checked="{{isChecked}}"/>
+  <textarea class="pbInfoInput" name="pbms" placeholder="请输入牌别信息"></textarea>
+  <view class="switch">确认提交</view>
+  <switch class="switch" name="yes" checked="{{isChecked}}"/>
+   
+  <view class="btn">
+      <button formType="submit">提交</button>
+      <button formType="reset">重置</button>
   </view>
- 
-  <view class="btn-area">
-    <button formType="submit">Submit</button>
-    <button formType="reset">Reset</button>
-  </view>
+
 </form>

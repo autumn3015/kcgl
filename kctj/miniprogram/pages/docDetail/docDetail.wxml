@@ -1,31 +1,27 @@
 
-<view class="table">
-  <view class="tr">
+<view class="tr">
     <view class="th ">牌别</view>
     <view class="th ">数量</view>
-  </view>
-
-  <block wx:for="{{detail}}" wx:key="{{code}}">
-    <view class="tr bg-g"  data-id="{{item._id}}"  > 
-      <view class="td">{{item.pb}}</view>
-      <view class="td">{{item.count}}</view>
-    </view>
-  </block>
 </view>
+
+<block wx:for="{{detail}}" wx:key="{{code}}">
+    <view class="tr"  data-id="{{item._id}}"  > 
+    <view class="td">{{item.pb}}</view>
+    <view class="td">{{item.count}}</view>
+    </view>
+</block>
+
 
 <view class="container">
 
   <text  class="remarks">备注</text>
   <text  class="remarksText">{{remarks}}</text>
 
-  <text  class="posterInfo">提交者信息</text>
+  <text  class="posterInfo">提交人信息</text>
   <view class="operatorInfo">
-    <image class="operatorInfo-avatar"src="{{avatarUrl}}"></image>
-    <text  class="operatorName">{{operator}}</text>
+  <image class="operatorInfo-avatar"src="{{avatarUrl}}"></image>
+  <text  class="operatorName">{{operator}}</text>
   </view>
-
   <text  class="operateTime">提交时间：{{operateTime}}</text>
-  
-
 
 </view>

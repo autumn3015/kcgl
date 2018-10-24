@@ -1,19 +1,21 @@
 <view class="table">
-  <view class="tr bg-w">
-    <view class="th">序号</view>
-    <view class="th ">牌别描述</view>
-    <view class="th ">库存批次</view>
+  <view class="bg">
+    <view class="tr">
+      <view class="th">序号</view>
+      <view class="th2 ">牌别</view>
+      <view class="th ">数量</view>
+    </view>
   </view>
 
   <block wx:for="{{pb}}" wx:key="{{code}}">
     <view class="tr" wx:if="{{index % 2 == 0}}"  data-id="{{item._id}}" data-pbms="{{item.pbms}}" bindtap='click'>
       <view class="td">{{index+1}}</view>    
-      <view class="td">{{item.pbms}}</view>
+      <view class="td2">{{item.pbms}}</view>
       <view class="td">{{item.count}}</view>
     </view>
-    <view class="tr bg-g" wx:else data-id="{{item._id}}" data-pbms="{{item.pbms}}" bindtap='click'>
+    <view class="tr" wx:else data-id="{{item._id}}" data-pbms="{{item.pbms}}" bindtap='click'>
       <view class="td">{{index+1}}</view>
-      <view class="td">{{item.pbms}}</view>
+      <view class="td2">{{item.pbms}}</view>
       <view class="td">{{item.count}}</view>
     </view>
   </block>
@@ -21,6 +23,7 @@
 
 <view class="circle">
   <navigator url="../addPB/addPB" open-type="navigate" class="uploader-text" >
-      <text>新增牌别</text>
+      <text>新增</text>
+      <text>牌别</text>
   </navigator>
 </view>

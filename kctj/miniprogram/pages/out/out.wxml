@@ -1,34 +1,29 @@
 <form bindsubmit="formSubmit" bindreset="formReset">
   
   <view class="table">
-      <view class="tr bg-w">
+      <view class="tr">
       <view class="th ">牌别</view>
       <view class="th ">出库数量</view>
       </view>
 
     <block wx:for="{{pb}}" wx:key="{{code}}">
-      <view class="tr" wx:if="{{index % 2 == 0}}"> 
-      <view class="td">{{item.pbms}}</view>
-      <input class="td" type="number" name="count{{index}}"/>
-      </view>
-  
-      <view class="tr bg-g" wx:else >
-      <view class="td">{{item.pbms}}</view>
-      <input class="td" type="number" name="count{{index}}"/>
+      <view class="tr" > 
+        <view class="td">{{item.pbms}}</view>
+        <input class="td" type="number" name="count{{index}}"/>
       </view>
     </block>
-
   </view>
 
-
-  <view class="section section_gap">
-    <view class="section__title">确认提交</view>
-    <switch name="yes" checked="{{isChecked}}"/>
-  </view>
- 
-  <view class="btn-area">
-    <button formType="submit">Submit</button>
-    <button formType="reset">Reset</button>
+  <view class="container">
+    <text  class="remarks">备注</text>
+    <textarea class="remarksText" name="remarksText" placeholder="可以添加备注"></textarea>
+    <view class="switch">确认提交</view>
+    <switch class="switch" name="yes" checked="{{isChecked}}"/>
+   
+    <view class="btn">
+      <button formType="submit">提交</button>
+      <button formType="reset">重置</button>
+    </view>
   </view>
 
 </form>

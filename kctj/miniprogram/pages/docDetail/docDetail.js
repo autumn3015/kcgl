@@ -23,10 +23,10 @@ Page({
     
     this.setData({
       detail: doc.detail,
-      operateTime:doc.operateTime,
+      remarks: doc.remarks,
       operator:doc.operator,
-      remarks:doc.remarks,
-      avatarUrl: app.globalData.userInfo.avatarUrl
+      avatarUrl: doc.operatorImageUrl,
+      operateTime: doc.operateTime,
     })
     
   },

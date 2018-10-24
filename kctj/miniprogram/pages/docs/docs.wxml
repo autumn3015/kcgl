@@ -4,7 +4,6 @@
     <view class="th ">提交时间</view>
     <view class="th ">提交人</view>
     <view class="th ">出/入</view>
-
   </view>
 
   <block wx:for="{{docList}}" wx:key="{{code}}">
@@ -14,6 +13,7 @@
       <view class="td">{{item.operator}}</view>
       <view class="td in" >入库</view>
     </view>
+
     <view class="tr" wx:else data-id="{{index}}"  bindtap='click'>
       <view class="td">{{index+1}}</view>
       <view class="td">{{item.operateTime}}</view>
@@ -21,4 +21,5 @@
       <view class="td out">出库</view>
     </view>
   </block>
+
 </view>
