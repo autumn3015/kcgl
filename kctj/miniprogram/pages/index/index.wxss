@@ -11,7 +11,6 @@ page {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: row;
   align-items: center;
   transition: all 300ms ease;
 }
@@ -22,7 +21,8 @@ page {
   margin: 20rpx;
   border-radius: 50%;
   background-size: cover;
-  background-color: white;
+  
+  /* background-color: white; */
 }
 
 .userinfo-nickname {
@@ -41,7 +41,6 @@ page {
 
 .uploader{
   display: flex;
-  flex-direction: row;
   height: 100rpx;
   width: 100%;
   background: #fff;
@@ -57,22 +56,42 @@ page {
   width: 100%;
   line-height: 40px;
   font-size: 34rpx;
-  color: #007aff;
+  color:  rgb(13, 98, 209);
 }
 
+.guideTextPost{
+  display: flex;
+  width: 100%;
+  height:2rem;
+  padding-left: 20rpx;
+  margin-top:60rpx;
+}
 
 .tr {
   display: flex;
   width: 100%;
+  height: 2rem;  
+  align-items: center;  
   justify-content: center;
-  height: 2rem;
-  align-items: center;
   border-bottom: 1rpx solid #ccc;
-  
+}
+
+.bg-w{
+  background: snow;
 }
 
 .th {
-  width: 100%;
+  width: 15%;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(4, 94, 38);
+  color: #fff;
+}
+
+.th2 {
+  width: 70%;
   height: 2rem;
   display: flex;
   align-items: center;
@@ -82,25 +101,31 @@ page {
 }
 
 .td {
-    width:100%;
-    justify-content: center;
+    width:15%;
     text-align: center;
+}
+
+.td2 {
+    width:70%;
+    text-align: center;
+}
+
+.in{
+  justify-content: center;
+  text-align: center;
+  color: rgb(4, 94, 38);
+}
+
+.out{
+  justify-content: center;
+  text-align: center;
+  color: rgb(216, 11, 28);
 }
 
 .container{
   display: flex;
   flex-direction: column;
   
-}
-
-.guideTextPost{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height:2rem;
-  padding-left: 20rpx;
-  margin-top:60rpx;
 }
 
 .guideTextRemarks{

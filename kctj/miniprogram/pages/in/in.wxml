@@ -1,13 +1,13 @@
 <form bindsubmit="formSubmit" bindreset="formReset">
   
   <view class="table">
-      <view class="tr">
-      <view class="th ">牌别</view>
-      <view class="th ">入库数量  </view>
+      <view class="tr bg-w">
+      <view class="th">牌别</view>
+      <view class="th">入库批数</view>
       </view>
 
     <block wx:for="{{pb}}" wx:key="{{code}}">
-      <view class="tr" > 
+      <view class="tr"> 
         <view class="td">{{item.pbms}}</view>
         <input class="td" type="number" name="count{{index}}"/>
       </view>

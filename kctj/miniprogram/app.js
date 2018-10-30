@@ -10,10 +10,8 @@ App({
       })
     }
 
-    // this.globalData = {}
-  },
+    this.globalData = {}
 
-  globalData: {
-    userInfo: null
   }
+
 })

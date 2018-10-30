@@ -6,9 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
-    docList: []
-
+    docList:''
   },
 
   /**
@@ -30,25 +28,35 @@ Page({
    */
   onShow: function () {
 
-    const db = wx.cloud.database()
+    // const db = wx.cloud.database()
+    // db.collection('doc').orderBy('operateTime', 'desc').get({
+    //   success: res => {
+    //     this.setData({
+    //       docList: res.data
+    //     })
+    //     // console.log('[数据库] [查询记录] 成功: ' + res.data, res)
+    //   },
+    //   fail: err => {
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: '查询记录失败'
+    //     })
+    //     console.error('[数据库] [查询记录] 失败：', err)
+    //   }
+    // })
 
-    db.collection('doc').orderBy('operateTime', 'desc').get({
-      success: res => {
+    wx.cloud.callFunction({
+      name: 'getDoc'
+    }).then((res) => {
+      if (res.result.data.length > 0) {
         this.setData({
-          docList: res.data
+          docList: res.result.data
         })
-        console.log('[数据库] [查询记录] 成功: ' + res.data, res)
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
       }
-    })
 
-
+    }).catch((e) => {
+      console.log(e);
+    });
   },
 
   /**
@@ -92,7 +100,7 @@ Page({
     var doc = this.data.docList[index];
     wx.setStorageSync('doc', doc);
 
-    console.log(doc)
+    // console.log(doc)
 
     wx.navigateTo({
       url: '../docDetail/docDetail'

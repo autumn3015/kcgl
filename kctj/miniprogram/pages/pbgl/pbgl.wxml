@@ -3,7 +3,7 @@
     <view class="tr">
       <view class="th">序号</view>
       <view class="th2 ">牌别</view>
-      <view class="th ">数量</view>
+      <view class="th ">库存</view>
     </view>
   </view>
 
@@ -21,9 +21,22 @@
   </block>
 </view>
 
-<view class="circle">
-  <navigator url="../addPB/addPB" open-type="navigate" class="uploader-text" >
-      <text>新增</text>
-      <text>牌别</text>
-  </navigator>
+<view class='box1'>
+  <view class='box2'>
+    <view class='td3'>现场库存：</view>
+    <text class='workSiteStock' selectable='true'>{{workSiteStock}}</text>
+  </view>
+  
+  <view class='box3' wx:if="{{openid=='onU7E5PNRNsp0CjmFqpw8kXyk2Sk'}}">
+    <view class="circle">
+      <navigator url="../addPB/addPB" open-type="navigate" class="uploader-text" >
+       <text>新增</text>
+       <text>牌别</text>
+      </navigator>
+    </view>
+  </view>
 </view>
+
+
+
+ 

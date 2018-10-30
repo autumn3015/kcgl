@@ -42,31 +42,40 @@
 
 <text  class="guideTextPost">最新提交的单据：</text>
 
-<view class="tr">
-    <view class="th ">牌别</view>
-    <view class="th ">数量</view>
+<view class="tr bg-w">
+    <view class="th2">牌别</view>
+    <view class="th ">批数</view>
+    <view class="th ">出/入</view>
 </view>
 
-<block wx:for="{{lastestDoc.detail}}" wx:key="{{code}}">
-    <view class="tr"  data-id="{{item._id}}"  > 
-    <view class="td">{{item.pb}}</view>
-    <view class="td">{{item.count}}</view>
+<block wx:for="{{latestDoc.detail}}" wx:key="{{code}}">
+    <view class="tr" wx:if="{{latestDoc.inOrOut=='入库'}}" > 
+      <view class="td2">{{item.pb}}</view>
+      <view class="td">{{item.count}}</view>
+      <view class="td in" >{{latestDoc.inOrOut}}</view>
     </view>
+
+     <view class="tr" wx:else > 
+      <view class="td2">{{item.pb}}</view>
+      <view class="td">{{item.count}}</view>
+      <view class="td out">出库</view>
+    </view>
+
 </block>
 
 
 <view class="container">
 
   <text  class="guideTextRemarks">备注</text>
-  <text  class="remarksText">{{lastestDoc.remarks}}</text>
+  <text  class="remarksText">{{latestDoc.remarks}}</text>
 
   <text  class="posterInfo">提交人信息</text>
   <view class="operatorInfo">
-  <image class="operatorInfo-avatar"src="{{lastestDoc.operatorImageUrl}}"></image>
-  <text  class="operatorName">{{lastestDoc.operator}}</text>
+  <image class="operatorInfo-avatar"src="{{latestDoc.operatorImageUrl}}"></image>
+  <text  class="operatorName">{{latestDoc.operator}}</text>
   </view>
-  <text  class="operateTime">提交时间：{{lastestDoc.operateTime}}</text>
-
+  <text  class="operateTime">提交时间：{{latestDoc.operateTime}}</text>
+  
 </view>
 
 

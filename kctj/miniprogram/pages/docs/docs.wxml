@@ -7,11 +7,11 @@
   </view>
 
   <block wx:for="{{docList}}" wx:key="{{code}}">
-    <view class="tr" wx:if="{{docList[index].inOrOut=='in'}}"  data-id="{{index}}"  bindtap='click'>
+    <view class="tr" wx:if="{{docList[index].inOrOut=='入库'||docList[index].inOrOut=='新增牌别'||docList[index].inOrOut=='删除牌别'||docList[index].inOrOut=='现场'}}"  data-id="{{index}}"  bindtap='click'>
       <view class="td">{{index+1}}</view>    
       <view class="td">{{item.operateTime}}</view>
       <view class="td">{{item.operator}}</view>
-      <view class="td in" >入库</view>
+      <view class="td in" >{{docList[index].inOrOut}}</view>
     </view>
 
     <view class="tr" wx:else data-id="{{index}}"  bindtap='click'>

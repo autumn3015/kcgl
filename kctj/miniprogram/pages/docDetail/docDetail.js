@@ -43,8 +43,6 @@ Page({
    */
   onShow: function () {
 
-
-
   },
 
   /**

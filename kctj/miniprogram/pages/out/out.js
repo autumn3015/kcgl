@@ -3,21 +3,22 @@ var util = require('../../utils/utils.js')
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-
     pb: [],
     isChecked: false
-
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.getUserInfo({
+      fail: function (res) {
+        wx.showToast({
+          title: '请登录'
+        })
+      }
+    })
   },
 
   /**
@@ -34,12 +35,11 @@ Page({
 
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
-    db.collection('pb').get({
+    db.collection('pb').orderBy('pbms', 'asc').get({
       success: res => {
         this.setData({
           pb: res.data
         })
-        console.log('[数据库] [查询记录] 成功: ')
       },
       fail: err => {
         wx.showToast({
@@ -49,7 +49,6 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-
   },
 
   /**
@@ -90,7 +89,6 @@ Page({
   formSubmit: function (e) {
 
     if (e.detail.value.yes) {
-
       var outDoc = []
       var userName = app.globalData.userInfo.nickName
       var avatarUrl = app.globalData.userInfo.avatarUrl
@@ -103,18 +101,20 @@ Page({
 
         if (e.detail.value["count" + i] > 0) {
           outDoc.push({ "pb": this.data.pb[i].pbms, "count": e.detail.value["count" + i] })
+          // 虽然下方updatePb数量已经改变了，但是这里取得的是pb.count还是没变之前的量
           var sBefore = parseInt(this.data.pb[i].count)
-          var outCount = e.detail.value["count" + i]
+          var outCount = parseInt(e.detail.value["count" + i])
           var sNow=sBefore-outCount
 
-          db.collection('pb').doc(this.data.pb[i]._id).update({
+          wx.cloud.callFunction({
+            name: 'updatePb',
             data: {
+              id: this.data.pb[i]._id,
               count: sNow
-            },
-            fail: err => {
-              icon: 'none',
-                console.error('[数据库] [更新记录] 失败：', err)
             }
+          }).then((res) => {
+          }).catch((e) => {
+            console.log(e);
           })
         }
       }
@@ -131,14 +131,12 @@ Page({
           operateTime: time,
           inOrOut:'out',
           remarks:remarks
-
         },
         success: res => {
-        
           wx.showToast({
             title: '已经提交',
           })
-          console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
+          // console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
         },
         fail: err => {
           wx.showToast({
@@ -148,6 +146,10 @@ Page({
           console.error('[数据库] [新增记录] 失败：', err)
         }
       })
+
+      wx.navigateTo({
+        url: "../index/index"
+      })
     }
 
     this.setData({ isChecked: false })
@@ -155,6 +157,6 @@ Page({
   },
 
   formReset: function () {
-    console.log('form发生了reset事件')
+    // console.log('form发生了reset事件')
   }
 })

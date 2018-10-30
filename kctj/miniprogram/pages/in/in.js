@@ -7,17 +7,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-
     pb:[],
     isChecked:false
-
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+    wx.getUserInfo({
+      fail: function (res) {
+             wx.showToast({
+                title: '请登录'
+             })
+      }
+    })
   },
 
   /**
@@ -34,12 +38,12 @@ Page({
 
     const db = wx.cloud.database()
     
-    db.collection('pb').get({
+    db.collection('pb').orderBy('pbms', 'asc').get({
       success: res => {
         this.setData({
           pb: res.data
         })
-        console.log('[数据库] [查询记录] 成功: ')
+        // console.log('[数据库] [查询记录] 成功: ')
       },
       fail: err => {
         wx.showToast({
@@ -88,8 +92,8 @@ Page({
   },
 
   formSubmit: function (e) {
-
-    if(e.detail.value.yes){
+  
+    if (e.detail.value.yes) {
 
       var inDoc = []
       var userName = app.globalData.userInfo.nickName
@@ -102,42 +106,40 @@ Page({
 
         if (e.detail.value["count" + i] > 0) {
           inDoc.push({ "pb": this.data.pb[i].pbms, "count": e.detail.value["count" + i] })
-          db.collection('pb').doc(this.data.pb[i]._id).update({
+
+          wx.cloud.callFunction({
+            name: 'updatePb',
             data: {
+              id: this.data.pb[i]._id,
               count: parseInt(this.data.pb[i].count) + parseInt(e.detail.value["count" + i])
-            },
-            fail: err => {
-              icon: 'none',
-              console.error('[数据库] [更新记录] 失败：', err)
             }
+          }).then((res) => {
+
+          }).catch((e) => {
+            console.log(e);
           })
         }
       }
 
-      if (remarks==''){
-        remarks='无'
+      if (remarks == '') {
+        remarks = '无'
       }
 
-      
+
       db.collection('doc').add({
         data: {
           detail: inDoc,
-          inOrOut:'in',
+          inOrOut: '入库',
           operator: userName,
-          operatorImageUrl:avatarUrl,
+          operatorImageUrl: avatarUrl,
           operateTime: time,
           remarks: remarks
         },
         success: res => {
-          // // 在返回结果中会包含新创建的记录的 _id
-          // this.setData({
-          //   counterId: res._id,
-           
-          // })
           wx.showToast({
             title: '已经提交',
           })
-          console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
+          
         },
         fail: err => {
           wx.showToast({
@@ -146,6 +148,10 @@ Page({
           })
           console.error('[数据库] [新增记录] 失败：', err)
         }
+      })
+
+      wx.navigateTo({
+        url: "../index/index"
       })
     }
 

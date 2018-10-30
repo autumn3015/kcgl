@@ -1,27 +1,24 @@
 // miniprogram/pages/pbgl/pbgl.js
 const app = getApp()
+var util = require('../../utils/utils.js')
+const db = wx.cloud.database()
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-
   data: {
-
+    openid: '',
     pb: [],
-
+    workSiteStock:''
   },
-
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // if (app.globalData.openid) {
-    //   this.setData({
-    //     openid: app.globalData.openid
-    //   })
-    // }
+   
+      this.setData({
+        openid: app.globalData.openid
+      })
+      // console.log('++++++++++++++++'+this.data.openid)
   },
 
   /**
@@ -35,14 +32,29 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
-    db.collection('pb').get({
+    
+    db.collection('pb').orderBy('pbms', 'asc').get({
       success: res => {
         this.setData({
           pb: res.data
         })
-        console.log('[数据库] [查询记录] 成功: '+res.data, res)
+        // console.log('[数据库] [查询记录] 成功: ')
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+
+    db.collection('workSiteStock').get({
+      success: res => {
+        this.setData({
+          workSiteStock: res.data[0].workSiteStock
+        })
+        // console.log(res.data)
       },
       fail: err => {
         wx.showToast({
@@ -92,6 +104,10 @@ Page({
 
 
   click: function (e) {
+
+    if (this.data.openid !='onU7E5PNRNsp0CjmFqpw8kXyk2Sk'){
+      return
+    }
     
     var pbid = e.currentTarget.dataset.id;
     var pbms = e.currentTarget.dataset.pbms;
@@ -111,21 +127,65 @@ Page({
           //点击取消,默认隐藏弹框
         } else {
           //点击确定
-          const db = wx.cloud.database()
-          db.collection('pb').doc(pbid).remove({
-            success: function (res) {
+          // db.collection('pb').doc(pbid).remove({
+          //   success: function (res) {
+          //   }
+          // })
+
+          wx.cloud.callFunction({
+            name: 'removePb',
+            data: {
+              pbid: pbid,
+            }
+          }).then((res) => {
+            wx.navigateTo({
+              url: '../pbgl/pbgl',
+            })
+            
+          }).catch((e) => {
+            console.log(e);
+          })
+
+          var inDoc = []
+          var userName = app.globalData.userInfo.nickName
+          var avatarUrl = app.globalData.userInfo.avatarUrl
+          var time = util.formatTime(new Date())
+
+
+          db.collection('doc').add({
+            data: {
+              detail: inDoc,
+              inOrOut: '删除牌别',
+              operator: userName,
+              operatorImageUrl: avatarUrl,
+              operateTime: time,
+              remarks: '删除牌别：' + pbms
+            },
+            success: res => {
+              wx.showToast({
+                title: '已经提交',
+              })
+              console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
+            },
+            fail: err => {
+              wx.showToast({
+                icon: 'none',
+                title: '提交失败'
+              })
+              console.error('[数据库] [新增记录] 失败：', err)
             }
           })
-
-          wx.navigateTo({
-            url: '../pbgl/pbgl',
-          })
+      
         }
+
       },
+
       fail: function (res) { },//接口调用失败的回调函数
-      complete: function (res) { },//接口调用结束的回调函数（调用成功、失败都会执行）
+      complete: function (res) {
+       },//接口调用结束的回调函数（调用成功、失败都会执行）
     })
 
+  
   }
   
 })

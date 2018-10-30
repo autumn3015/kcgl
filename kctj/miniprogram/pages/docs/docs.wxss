@@ -7,37 +7,36 @@
   align-items: center;
   border-bottom: 1rpx solid #ccc;
 }
+
+.th {
+  width: 100%;
+  align-items: center;  
+  justify-content: center;
+  background:  rgb(4, 94, 38);
+  color: #fff;
+  display: flex;
+  height: 3rem;
+}
+
 .td {
-  width:40%;
+  width:100%;
   justify-content: center;
   text-align: center;
 }
 
 .in{
-  width:40%;
+  width:100%;
   justify-content: center;
   text-align: center;
-  color: rgb(6, 112, 38);
+  color:  rgb(4, 94, 38);
 }
 
 .out{
-  width:40%;
+  width:100%;
   justify-content: center;
   text-align: center;
   color: rgb(216, 11, 28);
 }
 .bg-w{
   background: snow;
-}
-.bg-g{
-  background: snow;
-}
-.th {
-  width: 40%;
-  justify-content: center;
-  background: rgb(6, 92, 34);
-  color: #fff;
-  display: flex;
-  height: 3rem;
-  align-items: center;
 }

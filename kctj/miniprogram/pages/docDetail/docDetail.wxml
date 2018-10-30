@@ -1,7 +1,7 @@
 
-<view class="tr">
-    <view class="th ">牌别</view>
-    <view class="th ">数量</view>
+<view class="tr bg-w">
+    <view class="th">牌别</view>
+    <view class="th">批数</view>
 </view>
 
 <block wx:for="{{detail}}" wx:key="{{code}}">

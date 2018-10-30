@@ -18,10 +18,17 @@
   color: #fff;
 }
 
+.bg-w{
+  background: snow;
+}
+
 .td {
     width:100%;
+    display: flex;
+    align-items: center;
     justify-content: center;
     text-align: center;
+    border-left: 1rpx solid #ccc;
 }
 
 .container{

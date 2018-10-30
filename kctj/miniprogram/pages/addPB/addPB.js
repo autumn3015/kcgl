@@ -1,5 +1,7 @@
 // miniprogram/pages/addPB/addPB.js
+
 const app = getApp()
+var util = require('../../utils/utils.js')
 
 Page({
 
@@ -70,31 +72,111 @@ Page({
   formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value.pbms+e.detail.value.yes)
     if(e.detail.value.yes){
-
       const db = wx.cloud.database()
-      db.collection('pb').add({
-        data: {
-          pbms: e.detail.value.pbms,
-          count: 0
-        },
-        success: res => {
 
-          wx.showToast({
-            title: '新增牌别成功',
-          })
+      if(!e.detail.value.pbms==''){
+        db.collection('pb').add({
+          data: {
+            pbms: e.detail.value.pbms,
+            count: 0
+          },
+          success: res => {
 
-          formReset()
+            wx.showToast({
+              title: '已添加牌别',
+            })
 
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '新增记录失败'
-          })
-          console.error('[数据库] [新增记录] 失败：', err)
-        }
-      })
+            formReset()
 
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '新增记录失败'
+            })
+            console.error('[数据库] [新增记录] 失败：', err)
+          }
+        })
+      }
+      
+      var inDoc = []
+      var userName = app.globalData.userInfo.nickName
+      var avatarUrl = app.globalData.userInfo.avatarUrl
+      var time = util.formatTime(new Date())
+      var pbms = e.detail.value['pbms']
+      var workSiteStock = e.detail.value['workSiteStock']
+
+      if(!pbms==''){
+        db.collection('doc').add({
+          data: {
+            detail: inDoc,
+            inOrOut: '新增牌别',
+            operator: userName,
+            operatorImageUrl: avatarUrl,
+            operateTime: time,
+            remarks: '新增牌别：'+pbms
+          },
+          success: res => {
+            // wx.showToast({
+            //   title: '已经提交',
+            // })
+            // console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '提交失败'
+            })
+            console.error('[数据库] [新增记录] 失败：', err)
+          }
+        })
+      }
+
+      if (!workSiteStock == '') {
+        db.collection('doc').add({
+          data: {
+            detail: inDoc,
+            inOrOut: '现场',
+            operator: userName,
+            operatorImageUrl: avatarUrl,
+            operateTime: time,
+            remarks: '现场库存：' + workSiteStock
+          },
+          success: res => {
+            // wx.showToast({
+            //   title: '已经提交',
+            // })
+            // console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '提交失败'
+            })
+            console.error('[数据库] [新增记录] 失败：', err)
+          }
+        })
+
+        db.collection('workSiteStock').doc('W9HIgFw3CBlYq2jM').update({
+          data:{
+            workSiteStock:workSiteStock
+          }, success: res => {
+
+            wx.showToast({
+              title: '已更新现场库存',
+            })
+
+            formReset()
+
+          },
+            fail: err => {
+              icon: 'none',
+              console.error('[数据库] [更新记录] 失败：', err)
+            }
+        })
+
+      }
+       
     }
 
     this.setData({ isChecked: false })
@@ -102,6 +184,6 @@ Page({
   },
 
   formReset: function () {
-    console.log('form发生了reset事件')
+    // console.log('form发生了reset事件')
   }
 })
