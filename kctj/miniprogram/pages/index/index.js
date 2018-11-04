@@ -64,7 +64,7 @@ Page({
   onShow: function () {
 
     const db = wx.cloud.database()
-    db.collection('doc').orderBy('operateTime', 'desc').get({
+    db.collection('doc').orderBy('operateTime', 'desc').limit(1).get({
       success: res => {
         this.setData({
           latestDoc: res.data[0]
