@@ -1,0 +1,9 @@
+
+<view class='box'>
+  <form bindsubmit='validateBox'>
+    <text>这是您首次使用，请输入验证码</text>
+    <input class='code' type='text' name='code'></input>
+    <button type="primary" size="{{primarySize}}" class='login' form-type='submit'>验证</button>
+  </form>
+
+</view>

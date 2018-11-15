@@ -1,0 +1,28 @@
+
+  <!-- 用户 openid -->
+  <view class="userinfo">
+    <button 
+      open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo"
+      class="userinfo-avatar"
+      style="background-image: url({{avatarUrl}})"
+    ></button>
+    <view>
+      <text class="userinfo-nickname">~~~{{hello}}~~~</text>
+    </view>
+  </view>
+
+
+<view class="container1">
+  <view class="uploader">
+    <navigator url="../index/index" open-type="navigate" class="uploader-text">
+      <text>原料高架库</text>
+    </navigator>
+  </view>
+
+   <view class="uploader">
+    <navigator url="../in/in" open-type="navigate" class="uploader-text">
+      <text>提交入库单据</text>
+    </navigator>
+   </view>
+</view>
