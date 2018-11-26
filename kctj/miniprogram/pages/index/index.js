@@ -1,5 +1,6 @@
 //index.js
 const app = getApp()
+const db = wx.cloud.database()
 
 Page({
   data: {
@@ -14,29 +15,6 @@ Page({
   },
 
   onLoad: function() {
-
-    if (!wx.cloud) {
-      wx.redirectTo({
-        url: '../chooseLib/chooseLib',
-      })
-      return
-    }
-
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        // console.log('[云函数] [login] user openid: ', res.result.openid)
-        app.globalData.openid = res.result.openid
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-        wx.navigateTo({
-          url: '../deployFunctions/deployFunctions',
-        })
-      }
-    })
-
 
     // 获取用户信息
     wx.getSetting({
@@ -61,9 +39,44 @@ Page({
     })
   },
 
+
   onShow: function () {
 
-    const db = wx.cloud.database()
+    if (app.globalData.openid == 'gg') {
+      app.userOpenidReadyCallback = res => {
+        // console.log('>>>>>>>>>>>>>>>>' + res.openid)
+        var openid = res.openid
+
+        db.collection('openids').where({
+          openid: openid
+        }).get({
+          success: function (res) {
+            if (res.data.length < 1) {
+              wx.navigateTo({
+                url: "../codeValidate/codeValidate"
+              })
+            }
+          },
+          fail: console.error
+        })
+      }
+    } else {
+      var openid = app.globalData.openid
+
+      db.collection('openids').where({
+        openid: openid
+      }).get({
+        success: function (res) {
+          if (res.data.length < 1) {
+            wx.navigateTo({
+              url: "../codeValidate/codeValidate"
+            })
+          }
+        },
+        fail: console.error
+      })
+    }
+
     db.collection('doc').orderBy('operateTime', 'desc').limit(1).get({
       success: res => {
         this.setData({
@@ -79,19 +92,6 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-
-    // wx.cloud.callFunction({
-    //   name: 'getLatestDoc'
-    // }).then((res) => {
-    //   if (res.result.data.length>0){
-    //     this.setData({
-    //       latestDoc: res.result.data[0]
-    //     })
-    //   }
-    
-    // }).catch((e) => {
-    //   console.log(e);
-    // });
     
   },
 

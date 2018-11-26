@@ -10,7 +10,8 @@ Page({
    */
   data: {
 
-    isChecked: false
+    isChecked: false,
+    workSiteStock: ''
   },
 
   /**
@@ -31,6 +32,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    const db = wx.cloud.database()
+
+    db.collection('workSiteStock').doc('W9HIgFw3CBlYq2jM').get({
+      success: res => {
+        this.setData({
+          workSiteStock: res.data.workSiteStock
+        })
+
+      },
+      fail: err => {
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
 
   },
 
@@ -117,10 +131,6 @@ Page({
             remarks: '新增牌别：'+pbms
           },
           success: res => {
-            // wx.showToast({
-            //   title: '已经提交',
-            // })
-            // console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
           },
           fail: err => {
             wx.showToast({
@@ -132,7 +142,9 @@ Page({
         })
       }
 
-      if (!workSiteStock == '') {
+      if (workSiteStock == '') {
+        workSiteStock='无'
+      }
         db.collection('doc').add({
           data: {
             detail: inDoc,
@@ -143,41 +155,28 @@ Page({
             remarks: '现场库存：' + workSiteStock
           },
           success: res => {
-            // wx.showToast({
-            //   title: '已经提交',
-            // })
-            // console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
           },
           fail: err => {
-            wx.showToast({
-              icon: 'none',
-              title: '提交失败'
-            })
             console.error('[数据库] [新增记录] 失败：', err)
           }
         })
 
-        db.collection('workSiteStock').doc('W9HIgFw3CBlYq2jM').update({
-          data:{
-            workSiteStock:workSiteStock
-          }, success: res => {
+        wx.cloud.callFunction({
+          name: 'updateWorksiteStock',
+          data: {
+            workSiteStock: workSiteStock
+          }
+        }).then((res) => {
+          wx.showToast({
+            title: '已更新现场库存',
+          })
 
-            wx.showToast({
-              title: '已更新现场库存',
-            })
-
-            formReset()
-
-          },
-            fail: err => {
-              icon: 'none',
-              console.error('[数据库] [更新记录] 失败：', err)
-            }
+        }).catch((e) => {
+          console.log(e);
         })
 
       }
-       
-    }
+   
 
     this.setData({ isChecked: false })
     

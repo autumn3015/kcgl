@@ -16,43 +16,6 @@ Page({
 
   onLoad: function () {
 
-    if (!wx.cloud) {
-      wx.redirectTo({
-        url: '../chooseLib/chooseLib',
-      })
-      return
-    }
-
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        // console.log('[云函数] [login] user openid: ', res.result.openid)
-        var openid = res.result.openid
-        console.log('取得了openid'+openid)
-
-        db.collection('openids').where({
-          openid: openid
-        }).get({
-          success: function (res) {
-            if(res.data.length<1){
-                wx.navigateTo({
-            url: "../codeValidate/codeValidate"
-          })
-            }
-
-          },
-          fail: console.error
-        })
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-        wx.navigateTo({
-          url: '../deployFunctions/deployFunctions',
-        })
-      }
-    })
-
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -79,11 +42,38 @@ Page({
 
   onShow: function () {
 
-    console.log("yanzhenglema" + app.globalData.validated)
+    if (app.globalData.openid == 'gg') {
+      app.userOpenidReadyCallback = res => {
+        // console.log('>>>>>>>>>>>>>>>>' + res.openid)
+        var openid = res.openid
 
-    if (!app.globalData.validated) {
-      wx.navigateTo({
-        url: "../codeValidate/codeValidate"
+        db.collection('openids').where({
+          openid: openid
+        }).get({
+          success: function (res) {
+            if (res.data.length < 1) {
+              wx.navigateTo({
+                url: "../codeValidate/codeValidate"
+              })
+            }
+          },
+          fail: console.error
+        })
+      }
+    } else {
+      var openid=app.globalData.openid
+
+      db.collection('openids').where({
+        openid: openid
+      }).get({
+        success: function (res) {
+          if (res.data.length < 1) {
+            wx.navigateTo({
+              url: "../codeValidate/codeValidate"
+            })
+          }
+        },
+        fail: console.error
       })
     }
     

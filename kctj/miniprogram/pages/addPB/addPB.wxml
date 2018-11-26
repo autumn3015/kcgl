@@ -5,7 +5,7 @@
   <textarea class="pbInfoInput" name="pbms" placeholder="请输入入库牌别信息"></textarea>
 
   <text  class="pbInfo">现场库存</text>
-  <textarea class="pbInfoInput" name="workSiteStock" placeholder="请输入现场库存信息"></textarea>
+  <textarea class="pbInfoInput" name="workSiteStock" value='{{workSiteStock}}'></textarea>
 
 
   <view class="switch">确认提交</view>

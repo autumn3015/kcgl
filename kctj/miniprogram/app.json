@@ -1,7 +1,6 @@
 {
   "cloud": true,
   "pages": [
-    "pages/validate/validate",
     "pages/index/index",
     "pages/userConsole/userConsole",
     "pages/storageConsole/storageConsole",
@@ -15,7 +14,9 @@
     "pages/out/out",
     "pages/docDetail/docDetail",
     "pages/docs/docs",
-    "pages/codeValidate/codeValidate"
+    "pages/codeValidate/codeValidate",
+    "pages/xlkIndex/xlkIndex",
+    "pages/updateWorksiteStock/updateWorksiteStock"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

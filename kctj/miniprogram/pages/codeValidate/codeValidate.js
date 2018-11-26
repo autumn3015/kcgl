@@ -15,7 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    app.globalData.validated=false
+   
   },
 
   /**
@@ -36,8 +36,7 @@ Page({
     var code = e.detail.value.code
     var openid = app.globalData.openid
    
-   if(code=='xzjyc666666'){
-     app.globalData.validated = true
+   if(code=='xy123'){
      
      db.collection('openids').add({
        data: {
@@ -56,7 +55,7 @@ Page({
      },
      
        wx.navigateTo({
-         url: "../validate/validate"
+         url: "../index/index"
        }))
    }else{
      wx.showToast({

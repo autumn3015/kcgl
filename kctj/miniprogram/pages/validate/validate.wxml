@@ -21,8 +21,8 @@
   </view>
 
    <view class="uploader">
-    <navigator url="../in/in" open-type="navigate" class="uploader-text">
-      <text>提交入库单据</text>
+    <navigator url="../xlkIndex/xlkIndex" open-type="navigate" class="uploader-text">
+      <text>香料库</text>
     </navigator>
    </view>
 </view>

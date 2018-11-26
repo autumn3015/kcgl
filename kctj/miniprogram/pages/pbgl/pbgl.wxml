@@ -35,6 +35,15 @@
       </navigator>
     </view>
   </view>
+
+   <view class='box3' wx:if="{{openid!='onU7E5PNRNsp0CjmFqpw8kXyk2Sk'}}">
+    <view class="circle">
+      <navigator url="../updateWorksiteStock/updateWorksiteStock" open-type="navigate" class="uploader-text" >
+       <text>更新</text>
+       <text>现场</text>
+      </navigator>
+    </view>
+  </view>
 </view>
 
 
